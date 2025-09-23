@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sony Product Showcase</title>
+
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #111827 0%, #0c0e15 100%);
+      color: #e5e7eb;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .card-glow {
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.05);
+      transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s cubic-bezier(.4,2,.6,1);
+    }
+    .card-glow:hover {
+      transform: translateY(-8px) scale(1.04) rotate(-1deg);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7),
+                  0 0 40px 8px rgba(99,102,241,0.15),
+                  0 0 20px rgba(255, 255, 255, 0.2),
+                  inset 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    .hero-image {
+      transform: rotate(-15deg) scale(1.15);
+      transition: transform 0.6s cubic-bezier(.4,2,.6,1);
+    }
+    .hero-image:hover {
+      transform: rotate(-10deg) scale(1.2);
+    }
+    /* Animations */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-40px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0;}
+      100% { opacity: 1;}
+    }
+    @keyframes pulseGlow {
+      0%,100% { box-shadow: 0 0 0 0 rgba(139,92,246,0.4);}
+      50% { box-shadow: 0 0 40px 10px rgba(139,92,246,0.25);}
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(-18px);}
+    }
+    @keyframes slowSpin {
+      0% { transform: rotate(0deg) scale(1.1);}
+      100% { transform: rotate(360deg) scale(1.1);}
+    }
+    @keyframes bounceY {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(-16px);}
+    }
+    @keyframes pulseShadow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.15);}
+      50% { box-shadow: 0 0 32px 8px rgba(99,102,241,0.25);}
+    }
+    .animate-fadeInUp { animation: fadeInUp 1s cubic-bezier(.4,2,.6,1) both; }
+    .animate-fadeInDown { animation: fadeInDown 1s cubic-bezier(.4,2,.6,1) both; }
+    .animate-fadeIn { animation: fadeIn 1.2s cubic-bezier(.4,2,.6,1) both; }
+    .animate-delay-1 { animation-delay: .2s; }
+    .animate-delay-2 { animation-delay: .4s; }
+    .animate-delay-3 { animation-delay: .6s; }
+    .animate-delay-4 { animation-delay: .8s; }
+    .glow-pulse { animation: pulseGlow 2.5s infinite; }
+    .nav-underline:after {
+      content: "";
+      display: block;
+      margin: 0 auto;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg,#6366f1,#a855f7,#ec4899);
+      transition: width .3s;
+    }
+    .nav-underline:hover:after {
+      width: 100%;
+    }
+    .img-float-animate {
+      animation: floatY 3s ease-in-out infinite;
+    }
+    .img-spin-hover {
+      transition: transform 0.8s cubic-bezier(.4,2,.6,1);
+    }
+    .img-spin-hover:hover {
+      animation: slowSpin 2s linear infinite;
+      transform: scale(1.15);
+      z-index: 2;
+    }
+    .img-bounce-animate {
+      animation: bounceY 2.2s cubic-bezier(.4,2,.6,1) infinite;
+    }
+    .img-pulse-shadow {
+      animation: pulseShadow 2.5s infinite;
+    }
+    .img-tilt-hover {
+      transition: transform 0.5s cubic-bezier(.4,2,.6,1), box-shadow 0.5s;
+    }
+    .img-tilt-hover:hover {
+      transform: rotate(-8deg) scale(1.08);
+      box-shadow: 0 8px 32px 0 rgba(99,102,241,0.18), 0 2px 8px 0 rgba(236,72,153,0.10);
+      z-index: 2;
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-200">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 w-full z-30 bg-transparent shadow-none border-b border-gray-800/40 animate-fadeInDown">
+    <nav class="container mx-auto flex justify-between items-center max-w-7xl px-6 py-4">
+      <a href="#" class="flex items-center gap-2 group animate-fadeInDown">
+        <span class="text-3xl font-black tracking-widest text-white group-hover:text-indigo-400 transition-all duration-300 drop-shadow-lg"
+          style="letter-spacing:0.25em;">
+          SONY
+        </span>
+        <span class="w-3 h-3 rounded-full bg-gradient-to-tr from-indigo-400 via-purple-400 to-pink-400 shadow-lg group-hover:scale-125 transition-transform duration-300"></span>
+      </a>
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex space-x-8 text-base font-semibold">
+        <a href="#" class="text-gray-100 nav-underline transition animate-fadeInDown animate-delay-1">Home</a>
+        <a href="#features" class="text-gray-100 nav-underline transition animate-fadeInDown animate-delay-2">Features</a>
+        <a href="#colors" class="text-gray-100 nav-underline transition animate-fadeInDown animate-delay-3">Colors</a>
+        <a href="#pricing" class="text-gray-100 nav-underline transition animate-fadeInDown animate-delay-4">Pricing</a>
+      </div>
+      <!-- Mobile Menu (Hamburger) -->
+      <button class="md:hidden text-gray-300 hover:text-indigo-400 focus:outline-none animate-fadeInDown animate-delay-2" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="relative min-h-[calc(100vh-64px)] flex items-center justify-center p-0 pt-20">
+    <!-- Fullscreen Video Background -->
+    <video
+      src="sony.mp4"
+      autoplay
+      loop
+      muted
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover z-0 animate-fadeIn"
+      style="background: #181a20;"
+    ></video>
+    <!-- Overlay for readability -->
+    <div class="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-gray-900/60 to-transparent z-10"></div>
+    <!-- Hero Content -->
+    <div class="relative z-20 flex flex-col items-center justify-center text-center w-full px-6 py-32">
+      <div class="mt-4 mb-20 animate-fadeInDown">
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight drop-shadow-lg">
+          <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-fadeInUp">
+            Silence the noise.
+          </span><br />
+          <span class="text-gray-200 animate-fadeInUp animate-delay-1">Amplify the moment.</span>
+        </h1>
+      </div>
+      <div class="mb-12"></div>
+      <p class="text-lg sm:text-xl lg:text-2xl font-light text-gray-300 max-w-2xl mx-auto mb-8 drop-shadow mt-20 animate-fadeInUp animate-delay-2">
+        Premium wireless headphones engineered for immersive sound and total comfort.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fadeInUp animate-delay-3">
+        <a href="#buy" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl shadow-lg text-lg font-semibold transition glow-pulse">
+          Buy Now
+        </a>
+        <a href="#features" class="px-8 py-4 border border-gray-400 hover:border-indigo-400 hover:text-indigo-400 rounded-xl text-lg font-semibold transition">
+          Learn More
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Features -->
+  <section id="features" class="py-20 relative z-20">
+    <div class="container mx-auto max-w-7xl px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+        <!-- Feature -->
+        <div class="card-glow p-8 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl text-center animate-fadeInUp">
+          <div class="w-14 h-14 mx-auto mb-6 rounded-full flex items-center justify-center bg-blue-500 bg-opacity-20 glow-pulse">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-1.558 0-2.855-1.123-3.159-2.617C5.397 15.023 5 13.918 5 12c0-1.918 0.397-3.023 0.841-4.383C6.145 6.123 7.442 5 9 5s2.855 1.123 3.159 2.617C12.603 8.977 13 10.082 13 12c0 1.918-0.397 3.023-0.841 4.383C11.855 17.877 10.558 19 9 19zM15 19v-2.1c1.558 0 2.855-1.123 3.159-2.617C18.603 12.977 19 11.872 19 10c0-1.872-0.397-2.977-0.841-4.383C17.855 4.887 16.558 4 15 4s-2.855 1.123-3.159 2.617C11.603 7.977 11 9.082 11 11v2"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold mb-3 text-white">Immersive Audio</h3>
+          <p class="text-gray-400">Experience every note with crystal-clear fidelity and resonant bass.</p>
+        </div>
+
+        <!-- Feature -->
+        <div class="card-glow p-8 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl text-center animate-fadeInUp animate-delay-1">
+          <div class="w-14 h-14 mx-auto mb-6 rounded-full flex items-center justify-center bg-amber-500 bg-opacity-20 glow-pulse">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18.25c-3.194 0-5.75-2.556-5.75-5.75S8.806 6.75 12 6.75s5.75 2.556 5.75 5.75S15.194 18.25 12 18.25zM12 11.25a.75.75 0 100-1.5.75.75 0 000 1.5z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold mb-3 text-white">Adaptive Intelligence</h3>
+          <p class="text-gray-400">Smart sensors adjust sound automatically to your environment.</p>
+        </div>
+
+        <!-- Feature -->
+        <div class="card-glow p-8 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl text-center animate-fadeInUp animate-delay-2">
+          <div class="w-14 h-14 mx-auto mb-6 rounded-full flex items-center justify-center bg-green-500 bg-opacity-20 glow-pulse">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.75 17.25c-1.381 0-2.5-1.119-2.5-2.5s1.119-2.5 2.5-2.5 2.5 1.119 2.5 2.5-1.119 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-semibold mb-3 text-white">Unrivaled Comfort</h3>
+          <p class="text-gray-400">Ergonomic design with plush memory foam for long-lasting comfort.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Page 2: Color Variants -->
+<section id="colors" class="relative z-20 py-24 bg-gradient-to-b from-gray-950 to-gray-900">
+  <!-- Title -->
+  <div class="text-center mb-16 px-6">
+    <h2 class="text-5xl font-extrabold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+      Choose Your Color
+    </h2>
+    <p class="text-gray-400 mt-4 text-lg sm:text-xl max-w-2xl mx-auto">
+      Pick the Sony headphones color that matches your style
+    </p>
+  </div>
+
+  <!-- Color Variants Grid -->
+  <div class="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+    <!-- Variant 1: Black -->
+    <div class="flex flex-col items-center card-glow p-6 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl hover:scale-105 transition-transform group">
+      <img src="black.png" alt="Sony Headphones Black"
+        class="w-48 h-48 object-contain mb-4 transition-transform duration-500 group-hover:drop-shadow-[0_8px_32px_rgba(99,102,241,0.25)] animate-fadeInUp img-float-animate img-spin-hover">
+      <span class="text-white font-semibold text-lg">Black</span>
+    </div>
+
+    <!-- Variant 2: White -->
+    <div class="flex flex-col items-center card-glow p-6 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl hover:scale-105 transition-transform group animate-delay-1">
+      <img src="white.png" alt="Sony Headphones White"
+        class="w-48 h-48 object-contain mb-4 transition-transform duration-500 group-hover:drop-shadow-[0_8px_32px_rgba(236,72,153,0.25)] animate-fadeInUp animate-delay-1 img-float-animate img-spin-hover">
+      <span class="text-white font-semibold text-lg">White</span>
+    </div>
+
+    <!-- Variant 3: Indigo -->
+    <div class="flex flex-col items-center card-glow p-6 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl hover:scale-105 transition-transform group animate-delay-2">
+      <img src="indigo.png" alt="Sony Headphones Indigo"
+        class="w-48 h-48 object-contain mb-4 transition-transform duration-500 group-hover:drop-shadow-[0_8px_32px_rgba(139,92,246,0.25)] animate-fadeInUp animate-delay-2 img-float-animate img-spin-hover">
+      <span class="text-white font-semibold text-lg">Indigo</span>
+    </div>
+
+    <!-- Variant 4: Pink -->
+    <div class="flex flex-col items-center card-glow p-6 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl hover:scale-105 transition-transform group animate-delay-3">
+      <img src="pink.png" alt="Sony Headphones Pink"
+        class="w-48 h-48 object-contain mb-4 transition-transform duration-500 group-hover:drop-shadow-[0_8px_32px_rgba(236,72,153,0.25)] animate-fadeInUp animate-delay-3 img-float-animate img-spin-hover">
+      <span class="text-white font-semibold text-lg">Pink</span>
+    </div>
+
+  </div>
+
+  <!-- Subtle Neon Glow Background -->
+  <div class="absolute -z-10 top-1/2 left-1/2 w-96 h-96 bg-indigo-600 rounded-full blur-3xl opacity-20 -translate-x-1/2 -translate-y-1/2"></div>
+  <div class="absolute -z-10 top-1/4 right-1/4 w-72 h-72 bg-pink-500 rounded-full blur-2xl opacity-15"></div>
+</section>
+<!-- Page 3: Features / Tech Specs -->
+<section id="features" class="relative z-20 py-24 bg-gradient-to-b from-gray-950 to-gray-900">
+  <!-- Title -->
+  <div class="text-center mb-16 px-6">
+    <h2 class="text-5xl font-extrabold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+      Features & Tech Specs
+    </h2>
+    <p class="text-gray-400 mt-4 text-lg sm:text-xl max-w-2xl mx-auto">
+      Discover what makes Sony headphones truly exceptional
+    </p>
+  </div>
+
+  <!-- Features Grid -->
+  <div class="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+    <!-- Feature 1: Noise-Canceling -->
+    <div class="card-glow p-8 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl text-center hover:scale-105 transition-transform">
+      <img src="nc.png" alt="Noise Canceling Icon"
+        class="w-32 h-32 mx-auto mb-6 object-contain img-bounce-animate img-pulse-shadow img-tilt-hover">
+      <h3 class="text-2xl font-semibold mb-3 text-white">Active Noise-Canceling</h3>
+      <p class="text-gray-400">Block out distractions and enjoy immersive sound with advanced noise-canceling technology.</p>
+    </div>
+
+    <!-- Feature 2: Adaptive Sound -->
+    <div class="card-glow p-8 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl text-center hover:scale-105 transition-transform">
+      <img src="as.png" alt="Adaptive Sound Icon"
+        class="w-32 h-32 mx-auto mb-6 object-contain img-bounce-animate img-pulse-shadow img-tilt-hover" style="animation-delay:0.4s;">
+      <h3 class="text-2xl font-semibold mb-3 text-white">Adaptive Sound</h3>
+      <p class="text-gray-400">Smart sensors automatically adjust audio to your environment for perfect sound every time.</p>
+    </div>
+
+    <!-- Feature 3: Long Battery Life -->
+    <div class="card-glow p-8 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl text-center hover:scale-105 transition-transform">
+      <img src="battery.png" alt="Battery Icon"
+        class="w-32 h-32 mx-auto mb-6 object-contain img-bounce-animate img-pulse-shadow img-tilt-hover" style="animation-delay:0.8s;">
+      <h3 class="text-2xl font-semibold mb-3 text-white">30+ Hours Battery</h3>
+      <p class="text-gray-400">Enjoy uninterrupted listening with a long-lasting battery built for marathon sessions.</p>
+    </div>
+
+    <!-- Feature 4: Comfort / Ergonomic -->
+    <div class="card-glow p-8 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl text-center hover:scale-105 transition-transform">
+      <img src="indigo.png" alt="Comfort Icon"
+        class="w-32 h-32 mx-auto mb-6 object-contain img-bounce-animate img-pulse-shadow img-tilt-hover" style="animation-delay:1.2s;">
+      <h3 class="text-2xl font-semibold mb-3 text-white">Ergonomic Comfort</h3>
+      <p class="text-gray-400">Soft memory foam ear pads and an adjustable headband provide all-day comfort.</p>
+    </div>
+
+    <!-- Feature 5: Wireless Connectivity -->
+    <div class="card-glow p-8 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl text-center hover:scale-105 transition-transform">
+      <img src="wireless1.png" alt="Wireless Icon"
+        class="w-32 h-32 mx-auto mb-6 object-contain img-bounce-animate img-pulse-shadow img-tilt-hover" style="animation-delay:1.6s;">
+      <h3 class="text-2xl font-semibold mb-3 text-white">Wireless Connectivity</h3>
+      <p class="text-gray-400">Seamlessly connect to all devices via Bluetooth 5.2 with a strong and stable signal.</p>
+    </div>
+
+    <!-- Feature 6: Premium Materials -->
+    <div class="card-glow p-8 bg-gray-800 bg-opacity-30 backdrop-blur-lg rounded-3xl text-center hover:scale-105 transition-transform">
+      <img src="comfort.png" alt="Premium Materials Icon"
+        class="w-32 h-32 mx-auto mb-6 object-contain img-bounce-animate img-pulse-shadow img-tilt-hover" style="animation-delay:2s;">
+      <h3 class="text-2xl font-semibold mb-3 text-white">Premium Materials</h3>
+      <p class="text-gray-400">Crafted with high-quality metal and soft-touch plastics for durability and elegance.</p>
+    </div>
+
+  </div>
+
+  <!-- Subtle Neon Glow Background -->
+  <div class="absolute -z-10 top-1/2 left-1/2 w-96 h-96 bg-indigo-600 rounded-full blur-3xl opacity-20 -translate-x-1/2 -translate-y-1/2"></div>
+  <div class="absolute -z-10 top-1/4 right-1/4 w-72 h-72 bg-pink-500 rounded-full blur-2xl opacity-15"></div>
+</section>
+<!-- Page 4: Pricing -->
+<section id="pricing" class="relative z-20 py-24 bg-gradient-to-b from-gray-950 to-gray-900 overflow-hidden">
+  <!-- Floating Shapes Background -->
+  <div class="absolute -z-10 top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 opacity-10 rounded-full blur-[120px]"></div>
+  <div class="absolute -z-10 bottom-0 right-0 w-72 h-72 bg-pink-400 opacity-10 rounded-full blur-2xl"></div>
+  <div class="absolute -z-10 top-1/3 left-0 w-40 h-40 bg-indigo-400 opacity-10 rounded-full blur-2xl"></div>
+
+  <!-- Title -->
+  <div class="text-center mb-16 px-6">
+    <h2 class="text-5xl font-extrabold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg">
+      Choose Your Plan
+    </h2>
+    <p class="text-gray-400 mt-4 text-lg sm:text-xl max-w-2xl mx-auto">
+      Pick the perfect Sony headphones package for your needs
+    </p>
+  </div>
+
+  <!-- Pricing Cards Grid -->
+  <div class="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+    <!-- Basic Plan -->
+    <div class="relative card-glow p-10 bg-gray-800 bg-opacity-40 backdrop-blur-lg rounded-3xl text-center hover:scale-105 hover:shadow-indigo-700/30 transition-transform duration-300 border border-gray-700">
+      <div class="flex justify-center mb-6">
+        <span class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-400 to-blue-400 text-white shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-1.558 0-2.855-1.123-3.159-2.617C5.397 15.023 5 13.918 5 12c0-1.918 0.397-3.023 0.841-4.383C6.145 6.123 7.442 5 9 5s2.855 1.123 3.159 2.617C12.603 8.977 13 10.082 13 12c0 1.918-0.397 3.023-0.841 4.383C11.855 17.877 10.558 19 9 19z"/>
+          </svg>
+        </span>
+      </div>
+      <h3 class="text-2xl font-semibold mb-3 text-white">Basic</h3>
+      <p class="text-gray-400 mb-6">Perfect for casual listeners</p>
+      <span class="text-4xl font-extrabold text-white mb-6 block">$149</span>
+      <ul class="text-gray-400 space-y-2 mb-6">
+        <li>Standard headphones color options</li>
+        <li>20 Hours Battery Life</li>
+        <li>Basic Warranty</li>
+      </ul>
+      <a href="#buy" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl shadow-lg transition">
+        Buy Now
+      </a>
+    </div>
+
+    <!-- Pro Plan (Most Popular) -->
+    <div class="relative card-glow p-12 bg-gradient-to-br from-indigo-800 via-purple-800 to-pink-800 bg-opacity-80 backdrop-blur-lg rounded-3xl text-center scale-105 border-4 border-indigo-500 shadow-xl hover:scale-110 transition-transform duration-300">
+      <!-- Most Popular Badge -->
+      <div class="absolute -top-6 left-1/2 -translate-x-1/2">
+        <span class="px-4 py-1 bg-indigo-600 text-white text-xs font-bold rounded-full shadow-lg tracking-wider uppercase">Most Popular</span>
+      </div>
+      <div class="flex justify-center mb-6">
+        <span class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-tr from-pink-400 to-indigo-400 text-white shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18.25c-3.194 0-5.75-2.556-5.75-5.75S8.806 6.75 12 6.75s5.75 2.556 5.75 5.75S15.194 18.25 12 18.25zM12 11.25a.75.75 0 100-1.5.75.75 0 000 1.5z"/>
+          </svg>
+        </span>
+      </div>
+      <h3 class="text-2xl font-semibold mb-3 text-white">Pro</h3>
+      <p class="text-gray-300 mb-6">For music lovers and professionals</p>
+      <span class="text-5xl font-extrabold text-white mb-6 block drop-shadow-lg">$249</span>
+      <ul class="text-gray-200 space-y-2 mb-6">
+        <li>All color options</li>
+        <li>40+ Hours Battery Life</li>
+        <li>Active Noise-Canceling</li>
+        <li>2-Year Warranty</li>
+      </ul>
+      <a href="#buy" class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 hover:from-indigo-600 hover:to-pink-600 text-white rounded-xl shadow-xl font-semibold transition">
+        Buy Now
+      </a>
+    </div>
+
+    <!-- Ultimate Plan -->
+    <div class="relative card-glow p-10 bg-gray-800 bg-opacity-40 backdrop-blur-lg rounded-3xl text-center hover:scale-105 hover:shadow-pink-700/30 transition-transform duration-300 border border-gray-700">
+      <div class="flex justify-center mb-6">
+        <span class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-tr from-pink-400 to-purple-400 text-white shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.75 17.25c-1.381 0-2.5-1.119-2.5-2.5s1.119-2.5 2.5-2.5 2.5 1.119 2.5 2.5-1.119 2.5-2.5 2.5z"/>
+          </svg>
+        </span>
+      </div>
+      <h3 class="text-2xl font-semibold mb-3 text-white">Ultimate</h3>
+      <p class="text-gray-400 mb-6">For audiophiles who demand the best</p>
+      <span class="text-4xl font-extrabold text-white mb-6 block">$349</span>
+      <ul class="text-gray-400 space-y-2 mb-6">
+        <li>All color options</li>
+        <li>60+ Hours Battery Life</li>
+        <li>Premium Materials & Build</li>
+        <li>Active Noise-Canceling + Adaptive Sound</li>
+        <li>3-Year Warranty</li>
+      </ul>
+      <a href="#buy" class="px-6 py-3 bg-pink-600 hover:bg-pink-500 text-white rounded-xl shadow-lg transition">
+        Buy Now
+      </a>
+    </div>
+
+  </div>
+</section>
+<!-- Footer -->
+<footer class="bg-gray-900 relative z-20 border-t-4 border-transparent" style="border-image: linear-gradient(to right, #6366f1, #a855f7, #ec4899) 1;">
+  <div class="container mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-12 text-gray-400">
+
+    <!-- About / Logo -->
+    <div class="space-y-4">
+      <a href="#" class="text-2xl font-bold tracking-wide text-white flex items-center gap-2">
+        <span>Sony</span><span class="text-indigo-500">.</span>
+      </a>
+      <p class="text-gray-400 max-w-xs">
+        Premium Sony wireless headphones delivering immersive sound, comfort, and style.
+      </p>
+      <div class="flex gap-3 mt-4">
+        <a href="#" class="group">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 group-hover:bg-indigo-600 transition-all shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M22.23 0H1.77C.792 0 0 .774 0 1.73v20.538C0 23.228.792 24 1.77 24h11.073v-9.294H9.691v-3.622h3.152V8.413c0-3.118 1.896-4.817 4.666-4.817 1.328 0 2.47.099 2.804.143v3.25h-1.927c-1.511 0-1.805.718-1.805 1.77v2.323h3.61l-.47 3.622h-3.14V24h6.155c.978 0 1.77-.772 1.77-1.732V1.73C24 .772 23.208 0 22.23 0z"/></svg>
+          </span>
+        </a>
+        <a href="#" class="group">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 group-hover:bg-pink-600 transition-all shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932 4.932 0 002.165-2.724c-.951.566-2.005.978-3.127 1.2a4.916 4.916 0 00-8.384 4.482C7.69 8.094 4.067 6.13 1.64 3.161a4.822 4.822 0 00-.666 2.475c0 1.708.87 3.216 2.188 4.099a4.904 4.904 0 01-2.228-.616c-.054 1.997 1.407 3.868 3.446 4.288a4.935 4.935 0 01-2.224.084c.623 1.946 2.432 3.367 4.576 3.406A9.867 9.867 0 010 19.54a13.94 13.94 0 007.548 2.212c9.142 0 14.307-7.721 13.995-14.646A9.936 9.936 0 0024 4.557z"/></svg>
+          </span>
+        </a>
+        <a href="#" class="group">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 group-hover:bg-purple-600 transition-all shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 1.366.062 2.633.336 3.608 1.311.975.975 1.249 2.242 1.311 3.608.058 1.265.069 1.645.069 4.849s-.012 3.584-.07 4.849c-.062 1.366-.336 2.633-1.311 3.608-.975.975-2.242 1.249-3.608 1.311-1.265.058-1.645.069-4.849.069s-3.584-.012-4.849-.07c-1.366-.062-2.633-.336-3.608-1.311-.975-.975-1.249-2.242-1.311-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.849c.058-1.366.336-2.633 1.311-3.608.975-.975 2.242-1.249 3.608-1.311C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.771.13 4.637.423 3.678 1.382 2.719 2.341 2.426 3.475 2.368 4.756.014 8.332 0 8.741 0 12s.014 3.668.072 4.948c.058 1.281.351 2.415 1.31 3.374.959.959 2.093 1.252 3.374 1.31 1.28.058 1.689.072 4.948.072s3.668-.014 4.948-.072c1.281-.058 2.415-.351 3.374-1.31.959-.959 1.252-2.093 1.31-3.374.058-1.28.072-1.689.072-4.948s-.014-3.668-.072-4.948c-.058-1.281-.351-2.415-1.31-3.374-.959-.959-2.093-1.252-3.374-1.31C15.668.014 15.259 0 12 0z"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-white text-lg font-semibold mb-4">Quick Links</h3>
+      <ul class="space-y-2">
+        <li><a href="#features" class="hover:text-indigo-400 transition-colors">Features</a></li>
+        <li><a href="#colors" class="hover:text-pink-400 transition-colors">Colors</a></li>
+        <li><a href="#tech-specs" class="hover:text-purple-400 transition-colors">Tech Specs</a></li>
+        <li><a href="#pricing" class="hover:text-indigo-400 transition-colors">Pricing</a></li>
+        <li><a href="#buy" class="hover:text-indigo-400 transition-colors">Buy Now</a></li>
+      </ul>
+    </div>
+
+    <!-- Support / Newsletter -->
+    <div>
+      <h3 class="text-white text-lg font-semibold mb-4">Support</h3>
+      <ul class="space-y-2 mb-6">
+        <li><a href="mailto:support@goo.com" class="hover:text-indigo-400 transition-colors">Email Support</a></li>
+        <li><a href="#" class="hover:text-indigo-400 transition-colors">FAQ</a></li>
+        <li><a href="#" class="hover:text-indigo-400 transition-colors">Warranty</a></li>
+      </ul>
+      <h3 class="text-white text-lg font-semibold mb-2">Subscribe</h3>
+      <form class="flex gap-2">
+        <input type="email" placeholder="Your email" class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-gray-200 focus:outline-none focus:border-indigo-500" />
+        <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-white font-semibold transition">Subscribe</button>
+      </form>
+    </div>
+
+    <!-- Social / Contact -->
+    <div>
+      <h3 class="text-white text-lg font-semibold mb-4">Connect with Us</h3>
+      <div class="flex gap-4 mb-6">
+        <a href="#" class="group">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-800 group-hover:bg-indigo-600 transition-all shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M22.23 0H1.77C.792 0 0 .774 0 1.73v20.538C0 23.228.792 24 1.77 24h11.073v-9.294H9.691v-3.622h3.152V8.413c0-3.118 1.896-4.817 4.666-4.817 1.328 0 2.47.099 2.804.143v3.25h-1.927c-1.511 0-1.805.718-1.805 1.77v2.323h3.61l-.47 3.622h-3.14V24h6.155c.978 0 1.77-.772 1.77-1.732V1.73C24 .772 23.208 0 22.23 0z"/></svg>
+          </span>
+        </a>
+        <a href="#" class="group">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-800 group-hover:bg-pink-600 transition-all shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932 4.932 0 002.165-2.724c-.951.566-2.005.978-3.127 1.2a4.916 4.916 0 00-8.384 4.482C7.69 8.094 4.067 6.13 1.64 3.161a4.822 4.822 0 00-.666 2.475c0 1.708.87 3.216 2.188 4.099a4.904 4.904 0 01-2.228-.616c-.054 1.997 1.407 3.868 3.446 4.288a4.935 4.935 0 01-2.224.084c.623 1.946 2.432 3.367 4.576 3.406A9.867 9.867 0 010 19.54a13.94 13.94 0 007.548 2.212c9.142 0 14.307-7.721 13.995-14.646A9.936 9.936 0 0024 4.557z"/></svg>
+          </span>
+        </a>
+        <a href="#" class="group">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-800 group-hover:bg-purple-600 transition-all shadow-lg">
+
+
+
+
+
+
+</body>
+</html>
